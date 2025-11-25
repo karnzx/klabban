@@ -10,48 +10,47 @@ USER_ROLES = [
     ("refugee_camp_staff", "เจ้าหน้าที่ศูนย์พักพิง"),
 ]
 
-TITLE_CHOICES = ["นาย", "นางสาว", "นาง"]
-
-STATUS = [
+STATUS_CHOICES = [
     ("active", "ใช้งาน"),
-    ("disactive", "ไม่ใช้งาน"),
-    ("unregister", "ไม่ได้ลงทะเบียน"),
+    ("inactive", "ไม่ใช้งาน"),
 ]
 
 
 class User(me.Document, UserMixin):
-    meta = {"collection": "users", "indexes": ["first_name", "last_name"]}
+    meta = {"collection": "users", "indexes": ["username", "email"]}
 
-    """ข้อมูลทั่วไป"""
-    display_name = me.StringField(default="")  # ชื่อที่แสดง
-    first_name = me.StringField(max_length=128)  # ชื่อ
-    last_name = me.StringField(max_length=128)  # นามสกุล
-    username = me.StringField(required=True, min_length=3, max_length=64)  # ชื่อผู้ใช้งาน
-    password = me.StringField(required=True, default="")  # รหัสผ่านผู้ใช้งาน
-    email = me.StringField(max_length=128)  # email ผู้ใช้งาน
+    # ข้อมูลผู้ใช้
+    first_name = me.StringField(required=True, max_length=128)  # ชื่อ
+    last_name = me.StringField(required=True, max_length=128)  # นามสกุล
+    username = me.StringField(
+        required=True, unique=True, min_length=3, max_length=64)  # ชื่อผู้ใช้งาน
+    password = me.StringField(required=True)  # รหัสผ่านผู้ใช้งาน
+    email = me.StringField(required=True, unique=True,
+                           max_length=128)  # email ผู้ใช้งาน
+    phone_number = me.StringField(default="", max_length=20)  # เบอร์โทร
 
-    """ข้อมูลติดต่อ"""
-    emergency_contact = me.StringField(max_length=128, default="")  # เบอร์โทรฉุกเฉิน
-
-    """ข้อมูลผู้ใช้งาน"""
-    roles = me.ListField(
-        me.StringField(
-            default=USER_ROLES[0][0], choices=[role[0] for role in USER_ROLES]
-        )
-    )  # สิทธิ์การใช้งาน
-
-    resources = me.DictField()  # ข้อมูลเพิ่มเติมของผู้ใช้งานจาก OAuth2
-
+    # สถานะและบทบาท
     status = me.StringField(
-        required=True, default="active", choices=STATUS
+        required=True, default="active", choices=[status[0] for status in STATUS_CHOICES]
     )  # สถานะ ผู้ใช้งาน
 
-    created_date = me.DateTimeField(required=True, default=datetime.datetime.now)
+    roles = me.ListField(
+        me.StringField(choices=[role[0] for role in USER_ROLES]),
+        default=["user"]
+    )  # สิทธิ์การใช้งาน
+
+    # ความสัมพันธ์
+    refugee_camp = me.ReferenceField(
+        "RefugeeCamp", required=False)  # ศูนย์พักพิง (optional)
+
+    created_date = me.DateTimeField(
+        required=True, default=datetime.datetime.now)
     creator = me.ReferenceField("User", dbref=True, required=False)  # ผู้สร้าง
     updated_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
-    updater = me.ReferenceField("User", dbref=True, required=False)  # ผู้แก้ไขล่าสุด
+    updater = me.ReferenceField(
+        "User", dbref=True, required=False)  # ผู้แก้ไขล่าสุด
     last_login_date = me.DateTimeField(
         required=True, default=datetime.datetime.now, auto_now=True
     )
@@ -73,23 +72,18 @@ class User(me.Document, UserMixin):
         return False
 
     def get_fullname(self):
-        return f"{self.title}{self.first_name} {self.last_name}"
+        return f"{self.first_name} {self.last_name}"
 
     def display_status(self):
-        if "disactivate" in self.status:
-            return "ยกเลิก"
-        return "เปิดใช้งาน"
-
-    def get_user_roles(self):
-        if not self.role or not self.role.user_roles:
-            return []
-        return self.role.user_roles
+        status_dict = dict(STATUS_CHOICES)
+        return status_dict.get(self.status, self.status)
 
     def get_display_roles(self):
-        display_roles = []
-        if not self.role or not self.role.user_roles:
-            return display_roles
         role_dict = dict(USER_ROLES)
-        for role in self.role.user_roles:
-            display_roles.append(role_dict.get(role, role))
-        return display_roles
+        return [role_dict.get(role, role) for role in self.roles]
+
+    def is_admin(self):
+        return "admin" in self.roles
+
+    def is_refugee_camp_staff(self):
+        return "refugee_camp_staff" in self.roles
