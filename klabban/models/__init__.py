@@ -1,13 +1,15 @@
 from flask_mongoengine import MongoEngine
 from flask import Flask
 from klabban.models.users import User
+from klabban.models.refugees import Refugee
+from klabban.models.refugee_camps import RefugeeCamp
 
 import mongoengine as me
 
 __all__ = [
     "User",
-    "RefugeeCamp",
     "Refugee",
+    "RefugeeCamp",
 ]
 
 db = MongoEngine()
