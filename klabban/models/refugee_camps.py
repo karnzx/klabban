@@ -9,6 +9,7 @@ class RefugeeCamp(me.Document):
     location_url = me.URLField()
     contact_info = me.StringField()
     line_id = me.StringField()
+    other_link = me.StringField()
 
     status = me.StringField(choices=("deactive", "active"), default="active")
 

@@ -1,7 +1,8 @@
 from flask_mongoengine import MongoEngine
 from flask import Flask
 from klabban.models.users import User
-
+from klabban.models.refugee_camps import RefugeeCamp
+from klabban.models.refugee import Refugee
 import mongoengine as me
 
 __all__ = [
