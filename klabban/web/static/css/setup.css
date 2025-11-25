@@ -1,0 +1,176 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Thai:wght@100..900&display=swap");
+@import "tailwindcss";
+@config "./tailwind.config.js";
+
+@plugin "daisyui" {
+  themes: klabban;
+}
+
+@theme inline {
+  --font-sans: "Noto Sans Thai", "sans-serif";
+  --breakpoint-4k: 160rem;
+  --color-urgent: oklch(0.6626 0.168872 52.6854);
+  --color-urgent-content: oklch(0.6626 0.168872 52.6854);
+  --color-nurse: oklch(0.5829 0.2001 342.82);
+  --color-nurse-content: oklch(0.5829 0.2001 342.82);
+  --base-0 : #FFFFFF;
+  --color-base-0: var(--base-0);
+  --color-base-100: oklch(96% 0.007 247.896);
+  --color-base-200: #e8e8e8;
+  --color-base-300: oklch(86% 0.022 252.894);
+  --color-base-400: #99a1af
+  --color-base-500: rgb(107 114 128);
+  --color-base-600: rgb(75 85 99);
+  --color-base-700: rgb(55 65 81);
+  --color-base-800: rgb(31 41 55);
+
+}
+
+
+
+@plugin "daisyui/theme" {
+  name: "klabban";
+  default: true;
+  prefersdark: false;
+  color-scheme: "light";
+  --color-base-100: oklch(96% 0.007 247.896);
+  --color-base-200: #e8e8e8;
+  --color-base-300: oklch(86% 0.022 252.894);
+ 
+  --color-base-content: oklch(13% 0.028 261.692);
+  --color-primary: oklch(54% 0.245 262.881);
+  --color-primary-content: oklch(93% 0.034 272.788);
+  --color-secondary: #00B9C3;
+  --color-secondary-content: oklch(94% 0.028 342.258);
+  --color-accent: oklch(77% 0.152 181.912);
+  --color-accent-content: oklch(38% 0.063 188.416);
+  --color-neutral: oklch(14% 0.005 285.823);
+  --color-neutral-content: oklch(92% 0.004 286.32);
+  --color-info: oklch(74% 0.16 232.661);
+  --color-info-content: oklch(29% 0.066 243.157);
+  --color-success: oklch(72% 0.219 149.579);
+  --color-success-content: oklch(37% 0.077 168.94);
+  --color-warning: oklch(82% 0.189 84.429);
+  --color-warning-content: oklch(41% 0.112 45.904);
+  --color-error: oklch(57% 0.245 27.325);
+  --color-error-content: oklch(50% 0.213 27.518);
+  --radius-selector: 2rem;
+  --radius-field: 0.25rem;
+  --radius-box: 1rem;
+  --size-selector: 0.28125rem;
+  --size-field: 0.25rem;
+  --border: 1.5px;
+  --depth: 0;
+  --noise: 1;
+}
+
+
+.btn-orange {
+  @apply bg-orange-600 hover:bg-orange-700 focus:bg-orange-700 active:bg-orange-800;
+  @apply text-white;
+}
+
+
+.btn-ghost-orange {
+  @apply btn border-0 bg-white hover:bg-orange-100/50 hover:border-0 hover:text-orange-700;
+}
+
+.drawer-menu-active {
+  @apply bg-white text-orange-700;
+
+}
+
+.btn-gray-border {
+  @apply btn btn-outline w-full border-gray-300 text-gray-600 font-normal text-xs sm:text-sm;
+}
+
+.badge {
+  @apply rounded-md;
+}
+/* สไตล์สำหรับ Custom Time Dropdown Picker */
+/* Container ต้องเป็น relative เพื่อให้ dropdown ลอยเทียบกับตัวมันได้ */
+.relative-container {
+  position: relative;
+}
+
+/* ตัว Dropdown หลัก */
+.custom-time-dropdown {
+  display: none;
+  /* ซ่อนไว้ก่อน */
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 50;
+  background: var(--color-base-100);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  max-height: 300px;
+  overflow: hidden;
+}
+
+/* แสดงเมื่อมี class 'show' */
+.custom-time-dropdown.show {
+  display: flex;
+}
+
+/* คอลัมน์ชั่วโมง/นาที */
+.time-column {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 300px;
+  border-right: 1px solid #eee;
+}
+
+.time-column:last-child {
+  border-right: none;
+}
+
+/* หัวข้อคอลัมน์ */
+.column-header {
+  position: sticky;
+  top: 0;
+  background: var(--color-base-100);
+  font-weight: bold;
+  text-align: center;
+  padding: 8px;
+  border-bottom: 1px solid #eee;
+}
+
+/* ตัวเลือกเวลา */
+.time-option {
+  padding: 8px 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.time-option:hover {
+  background-color: #f3f4f6;
+}
+
+/* ตัวที่ถูกเลือกอยู่ */
+.time-option.selected {
+  background-color: #3b82f6;
+  border-radius: 0.5rem;
+  color: white;
+}
+
+.klabban-stat-card-urgent  {
+  @apply bg-urgent/10 text-urgent-content;
+}
+
+.klabban-stat-card-blue  {
+  @apply bg-blue-600/10 text-blue-700;
+}
+
+.klabban-stat-card-green  {
+  @apply bg-green-600/10 text-green-700;
+}
+
+.klabban-stat-card-purple  {
+  @apply bg-purple-600/10 text-purple-700;
+}
+
+.klabban-personal-info-detail {
+  @apply border-b border-b-base-400 space-y-2 flex flex-col
+}

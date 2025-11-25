@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cd klabban/web/static
+
+npm $1 $2

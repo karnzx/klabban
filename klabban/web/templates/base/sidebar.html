@@ -1,0 +1,27 @@
+<div class="drawer-side shadow">
+  <label for="drawer-menu" aria-label="close sidebar" class="drawer-overlay h-full"></label>
+  <div class="flex flex-col h-full bg-gradient-to-b from-orange-600 to-orange-700 text-white w-64">
+    <!-- Header -->
+    <div class="py-4 flex items-center gap-2 border-b border-urgent px-8">
+      <div class="avatar">
+        <div class="w-12 h-12 rounded-full">
+          <img src="{{ url_for('static', filename='images/klabban.png') }}" alt="ระบบงานพระ"
+            class="w-full h-full object-cover" />
+        </div>
+      </div>
+      <div>
+        <div class="text-xl font-bold">Klabban</div>
+      </div>
+    </div>
+    <!-- Menu -->
+    <div class="flex-grow text-sm menu w-full">
+      <ul class="menu gap-2 w-full">
+        <li class="">
+          <a class="{{ 'drawer-menu-active' if '/dashboard' in request.path else '' }}"
+            href="{{ url_for('dashboard.index') }}">
+            <span class="material-symbols-outlined">dashboard</span>
+            แดชบอร์ด
+          </a>
+        </li>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+{
+  "name": "static",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tw": "npx @tailwindcss/cli -i ./css/setup.css -o ./css/app.css",
+    "tw:watch": "npx @tailwindcss/cli -i ./css/setup.css -o ./css/app.css --watch",
+    "tw:minify": "npx @tailwindcss/cli -i ./css/setup.css -o ./css/app.css --minify"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fullcalendar/core": "^6.1.18",
+    "@fullcalendar/daygrid": "^6.1.17",
+    "@fullcalendar/list": "^6.1.17",
+    "@fullcalendar/timegrid": "^6.1.17",
+    "@highlightjs/cdn-assets": "^11.11.1",
+    "@phosphor-icons/web": "^2.1.2",
+    "@tailwindcss/cli": "^4.1.10",
+    "htmx.org": "^1.9.12",
+    "jquery": "^3.7.1",
+    "cally": "^0.8.0",
+    "tailwindcss": "^4.1.13"
+  },
+  "devDependencies": {
+    "daisyui": "^5.0.43"
+  }
+}

@@ -1,0 +1,49 @@
+{% extends "base/base.html" %}
+
+{% block body %}
+<div class="drawer 2xl:drawer-open">
+  <div id="change-password-modal"></div>
+  <input id="drawer-menu" type="checkbox" class="drawer-toggle" />
+  <div class="drawer-content bg-base-100">
+    <div class="drawer-content 2xl:hidden">
+      <label for="drawer-menu" class="drawer-button btn btn-outline ml-4 mt-4
+            h-11 w-11 p-0 flex items-center justify-center
+            rounded-xl border-gray-300
+            hover:bg-gray-100 hover:border-gray-400
+            active:scale-95 transition-all duration-200">
+        <span class="material-symbols-outlined text-2xl text-gray-700">
+          menu
+        </span>
+      </label>
+    </div>
+
+
+    <div class="flex flex-col h-full">
+      <div class="pt-4 px-4">
+        {% block back_button %}
+        {% endblock back_button %}
+      </div>
+      <div class="w-full  p-4">
+        <div class="w-full flex flex-row">
+          <span class="text-xl font-bold">
+            {{ title_page }}
+          </span>
+        </div>
+        <div class="w-full">
+          <span class="text-sm text-base-content/60">
+            {{ description_page }}
+          </span>
+        </div>
+      </div>
+      <div class="lg:px-2 mx-2 pb-5">
+        {% block content %}
+        {% endblock content %}
+      </div>
+    </div>
+  </div>
+  {% for category, message in get_flashed_messages(with_categories=true) %}
+  {{ render_toast(message, category) }}
+  {% endfor %}
+  {% include "base/sidebar.html" %}
+</div>
+{% endblock body %}
