@@ -18,7 +18,7 @@ def init_admin():
         first_name="เจ้าหน้าที่",
         last_name="ดูแลระบบ",
         status="active",
-        roles=["user"],
+        roles=["admin"],
     )
     admin_user.set_password("p@ssw0rd")
     admin_user.save()
