@@ -50,10 +50,28 @@
         </li>
          <li>
           <a class="{{ 'drawer-menu-active' if '/users' in request.path else '' }}"
-             href="#">
+             href="{{ url_for('users.index') }}">
             <i class="ph ph-users text-lg"></i>
             ผู้ใช้งาน
           </a>
         </li>
+      </ul>
+      <ul class="mt-auto menu gap-2 w-full">
+        {% if current_user.is_authenticated %}
+          <li>
+            <a class="text-red-500" href="{{ url_for('accounts.logout') }}">
+              <i class="ph ph-sign-out text-lg"></i>
+              ออกจากระบบ
+            </a>
+          </li>
+        {% else %}
+          <li>
+            <a class="text-white" href="{{ url_for('accounts.login') }}">
+              <i class="ph ph-sign-in text-lg"></i>
+              เข้าสู่ระบบ
+            </a>
+          </li>
+        {% endif %}
+      </ul>
   </div>
 </div>
