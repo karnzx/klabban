@@ -2,7 +2,7 @@ from flask_wtf import FlaskForm
 from flask_mongoengine.wtf import model_form
 from klabban.web import models
 
-BaseRefugeeCampeForm = model_form(
+BaseRefugeeCampForm = model_form(
     models.RefugeeCamp,
     FlaskForm,
     field_args={
@@ -13,3 +13,6 @@ BaseRefugeeCampeForm = model_form(
         "other_link": {"label": "ลิงก์อื่น ๆ"},
     }
 )
+
+class RefugeeCampForm(BaseRefugeeCampForm):
+    pass

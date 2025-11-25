@@ -1,0 +1,25 @@
+{% import "base/html_renderer.html" as renderer %}
+
+{% set modal_header = 'เพิ่มศูนย์พักพิงใหม่' %}
+
+<dialog class="modal modal-open" id="{{ modal_id }}">
+  <div class="modal-box">
+    <h3 class="text-lg">{{ modal_header }}</h3>
+    <span class="text-sm text-gray-600">กรอกข้อมูลศูนย์พักพิงใหม่ในแบบฟอร์มด้านล่าง</span>
+    <form method="post" action="{{ url_for('refugee_camps.create_or_edit_refugee_camp', refugee_camp_id=refugee_camp_id) }}">
+      {{ form.csrf_token }}
+      <div class="flex flex-col">
+        {{ renderer.base_render(form.name) }}
+      </div>
+      <div class="modal-action justify-end">
+        <button type="button" class="btn"
+          onclick="document.getElementById('{{ modal_id }}').classList.remove('modal-open')">
+          ปิด
+        </button>
+        <button id="submit-button" class="btn btn-primary">
+          ยืนยัน
+        </button>
+      </div>
+    </form>
+  </div>
+</dialog>

@@ -1,0 +1,65 @@
+{% extends "/base/default_page.html" %}
+{% import "/components/dialogs.html" as dialog %}
+{% set title_page="จัดการศูนย์พักพิง" %}
+
+{% block content %}
+<div id="create_or_edit_refugee_camp-modal"></div>
+<div class="bg-white rounded-3xl border border-gray-300">
+    <div class="overflow-x-auto p-6">
+        <div class="flex flex-row items-center justify-between mb-2">
+            <span class="text-xl font-medium text-gray-700">
+                ศูนย์พักพิง
+            </span>
+            <button class="btn btn-success btn-sm text-white" 
+            hx-target="#create_or_edit_refugee_camp-modal" 
+            hx-get="{{ url_for('refugee_camps.create_or_edit_refugee_camp', **request.args) }}">
+                <span class="material-symbols-outlined text-sm">add</span>
+                เพิ่มศูนย์พักพิง
+            </button>
+        </div>
+        <table class="table  w-full text-sm border-x border-t border-gray-200 ">
+            <thead class=" text-gray-700">
+                <tr>
+                <th>ลำดับ</th>
+                <th>ชื่อศูนย์พักพิง</th>
+                <th>ตำแหน่ง</th>
+                <th class="text-center">จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for refugee_camp in refugee_camps %}
+                <tr class="border-b border-x border-gray-200">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ refugee_camp.name }}</td>
+                    <td>{{ refugee_camp.location_url }}</td>
+                  
+                    <td class="flex gap-2 justify-center">
+                        <button
+                        hx-target="#create_or_edit_refugee_camp-modal" 
+                        hx-get="{{ url_for('refugee_camps.create_or_edit_refugee_camp',refugee_camp_id=refugee_camp.id, **request.args) }}"
+                        class="btn btn-outline btn-sm text-gray-600 border-gray-300">
+                            <span class="material-symbols-outlined">
+                                edit_square
+                            </span>
+                        </button>
+                        <button class="btn btn-outline btn-sm border-gray-300 text-error"
+                           onclick="$('#{{refugee_camp.id}}-disactive-dialog')[0].showModal()">
+                            <span class="material-symbols-outlined">
+                            delete
+                            </span>
+                        </button>
+                        {{ dialog.DisactiveDialog(
+                        id="%s-disactive-dialog" | format(refugee_camp.id),
+                        title="ยืนยันการลบรายการศูนย์พักพิง",
+                        body="คุณต้องการที่จะลบรายการศูนย์พักพิงชื่อ <b>%s</b> ใช่หรือไม่?" | format(refugee_camp.name),
+                        url=url_for("refugee_camps.delete_refugee_camp",
+                        refugee_camp_id=refugee_camp.id)
+                        )}}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

@@ -12,7 +12,7 @@
             </span>
             <button class="btn btn-success btn-sm text-white" 
             hx-target="#create_or_edit_refugee_camp-modal" 
-            hx-get="{{ url_for('settings.create_or_edit_refugee_camp', **request.args) }}">
+            hx-get="{{ url_for('refugee_camps.create_or_edit_refugee_camp', **request.args) }}">
                 <span class="material-symbols-outlined text-sm">add</span>
                 เพิ่มศูนย์พักพิง
             </button>
@@ -36,7 +36,7 @@
                     <td class="flex gap-2 justify-center">
                         <button
                         hx-target="#create_or_edit_refugee_camp-modal" 
-                        hx-get="{{ url_for('settings.create_or_edit_refugee_camp',refugee_camp_id=refugee_camp.id, **request.args) }}"
+                        hx-get="{{ url_for('refugee_camps.create_or_edit_refugee_camp',refugee_camp_id=refugee_camp.id, **request.args) }}"
                         class="btn btn-outline btn-sm text-gray-600 border-gray-300">
                             <span class="material-symbols-outlined">
                                 edit_square
@@ -52,7 +52,7 @@
                         id="%s-disactive-dialog" | format(refugee_camp.id),
                         title="ยืนยันการลบรายการศูนย์พักพิง",
                         body="คุณต้องการที่จะลบรายการศูนย์พักพิงชื่อ <b>%s</b> ใช่หรือไม่?" | format(refugee_camp.name),
-                        url=url_for("settings.delete_refugee_camp",
+                        url=url_for("refugee_camps.delete_refugee_camp",
                         refugee_camp_id=refugee_camp.id)
                         )}}
                     </td>
