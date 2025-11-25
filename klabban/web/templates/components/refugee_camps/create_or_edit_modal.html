@@ -11,6 +11,15 @@
       <div class="flex flex-col">
         {{ renderer.base_render(form.name) }}
       </div>
+      <div class="flex flex-col">
+        {{ renderer.base_render(form.location_url) }}
+      </div>
+      <div class="flex flex-col">
+        {{ renderer.render_text_area_field(form.contact_info) }}
+      </div>
+      <div class="flex flex-col">
+        {{ renderer.base_render(form.other_link) }}
+      </div>
       <div class="modal-action justify-end">
         <button type="button" class="btn"
           onclick="document.getElementById('{{ modal_id }}').classList.remove('modal-open')">

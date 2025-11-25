@@ -64,6 +64,7 @@ def delete_refugee_camp(refugee_camp_id):
     refugee_camp = models.RefugeeCamp.objects(id=refugee_camp_id).first()
     if refugee_camp:
         refugee_camp.status = "deactive"
+        refugee_camp.save()
     return redirect(
         url_for("refugee_camps.index")
     )

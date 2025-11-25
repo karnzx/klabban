@@ -31,8 +31,14 @@
                 <tr class="border-b border-x border-gray-200">
                     <td>{{ loop.index }}</td>
                     <td>{{ refugee_camp.name }}</td>
-                    <td>{{ refugee_camp.location_url }}</td>
-                  
+                    <td>
+                        {% if refugee_camp.location_url %}
+                        <a href="{{ refugee_camp.location_url }}" target="_blank" class="text-blue-600 hover:underline">
+                        คลิกดูตำแหน่ง
+                        {% else %}
+                        -
+                        {% endif %}
+                    </td>
                     <td class="flex gap-2 justify-center">
                         <button
                         hx-target="#create_or_edit_refugee_camp-modal" 
