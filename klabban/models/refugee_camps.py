@@ -5,11 +5,11 @@ import mongoengine as me
 class RefugeeCamp(me.Document):
     meta = {"collection": "refugee_camps", "indexes": ["name", "status", "created_by"]}
 
-    name = me.StringField(required=True)
+    name = me.StringField(required=True, max_length=255)
     location_url = me.URLField()
     contact_info = me.StringField()
-    line_id = me.StringField()
-    other_link = me.StringField()
+    line_id = me.StringField(max_length=128)
+    other_link = me.StringField(max_length=2048)
 
     status = me.StringField(choices=("deactive", "active"), default="active")
 
