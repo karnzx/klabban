@@ -1,0 +1,66 @@
+{% extends "/base/default_page.html" %}
+{% import "base/html_renderer.html" as renderer %}
+{% set title_page="รายชื่อผู้อพยพ" %}
+
+{% block content %}
+<div class="bg-white rounded-3xl border border-gray-300">
+    <div class="overflow-x-auto p-6">
+        <div class="flex flex-row items-end justify-between mb-2">
+            <form method="GET">
+                <div class="text-xl font-medium text-gray-700">
+                    ค้นหารายชื่อผู้อพยพ
+                </div>
+                <div class="flex gap-4 items-center">
+                    {{ renderer.base_render(search_form.refugee_camp) }}
+                    {{ renderer.base_render(search_form.search) }}
+                    <button type="submit" class="btn btn-primary text-white mt-4">
+                        ค้นหา
+                    </button>
+                </div>
+            </form>
+            <a class="btn btn-primary text-white" href="{{ url_for('refugees.create_or_edit', **request.args) }}">
+                <span class="material-symbols-outlined text-sm">add</span>
+                เพิ่มผู้อพยพ
+            </a>
+        </div>
+        <table class="table  w-full text-sm border-x border-t border-gray-200 ">
+            <thead class=" text-gray-700">
+                <tr>
+                <th>ลำดับ</th>
+                <th>ชื่อเล่น</th>
+                <th>ชื่อ-นามสกุล</th>
+                <th>สถานะ</th>
+                <th>ศูนย์พักพิง</th>
+                <th>จัดการ</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for refugee in refugees %}
+                <tr class="border-b border-x border-gray-200">
+                    <td>{{ loop.index }}</td>
+                    <td>{{ refugee.nick_name }}</td>
+                    <td>{{ refugee.name }}</td>
+                    <td>
+                        <div class="border rounded-lg py-1 px-2 size-fit
+                            {{ 'text-blue-500 border-blue-500' if refugee.status == 'active' else '' }}
+                            {{ 'text-red-500 border-red-500' if refugee.status == 'deactive' else '' }}
+                            {{ 'text-green-500 border-green-500' if refugee.status == 'back_home' else '' }}
+                             ">
+                             {{ refugee.get_status_display() }}
+                        </div>
+                    </td>
+                    <td>{{ refugee.refugee_camp.name }}</td>
+                    <td class="flex gap-2 justify-center">
+                        <a href="{{ url_for('refugees.create_or_edit', refugee_id=refugee.id) }}" class="btn btn-outline btn-sm text-gray-600 border-gray-300">
+                            <span class="material-symbols-outlined">
+                                edit_square
+                            </span>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

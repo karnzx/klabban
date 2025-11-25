@@ -2,6 +2,13 @@ import datetime
 import mongoengine as me
 
 
+REFUGEE_STATUS_CHOICES = [
+    ("active", "กำลังพักพิง"),
+    ("back_home", "กลับบ้านแล้ว"),
+    ("deactive", "ปิดการใช้งาน"),
+]
+
+
 class Refugee(me.Document):
     meta = {
         "collection": "refugees",
@@ -9,17 +16,16 @@ class Refugee(me.Document):
     }
 
     refugee_camp = me.ReferenceField("RefugeeCamp")
-    nick_name = me.StringField()
-    name = me.StringField(required=True)
-    nationality = me.StringField()
-    ethnicity = me.StringField()
-    picture = me.FileField()  
+    nick_name = me.StringField(max_length=255)
+    name = me.StringField(required=True, max_length=255)
+    nationality = me.StringField(max_length=128)
+    ethnicity = me.StringField(max_length=128)
     remark = me.StringField()
     registration_date = me.DateTimeField(default=datetime.datetime.now)
     is_public_searchable = me.BooleanField(default=True)
-    
+
     status = me.StringField(
-        choices=("deactive", "active", "back_home"),
+        choices=REFUGEE_STATUS_CHOICES,
         default="active",
     )
 
