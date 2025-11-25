@@ -6,6 +6,8 @@ import mongoengine as me
 
 __all__ = [
     "User",
+    "RefugeeCamp",
+    "Refugee",
 ]
 
 db = MongoEngine()

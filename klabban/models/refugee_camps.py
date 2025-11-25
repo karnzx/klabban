@@ -5,7 +5,6 @@ import mongoengine as me
 class RefugeeCamp(me.Document):
     meta = {"collection": "refugee_camps", "indexes": ["name", "status", "created_by"]}
 
-    id = me.ObjectIdField(primary_key=True)
     name = me.StringField(required=True)
     location_url = me.URLField()
     contact_info = me.StringField()

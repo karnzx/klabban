@@ -8,7 +8,6 @@ class Refugee(me.Document):
         "indexes": ["name", "status", "refugee_camp", "created_by"],
     }
 
-    id = me.ObjectIdField(primary_key=True)
     refugee_camp = me.ReferenceField("RefugeeCamp")
     nick_name = me.StringField()
     name = me.StringField(required=True)

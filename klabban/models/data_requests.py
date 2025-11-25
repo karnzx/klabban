@@ -8,7 +8,6 @@ class SensitiveDataRequest(me.Document):
         "indexes": ["requester", "approver", "status", "request_date"],
     }
 
-    id = me.ObjectIdField(primary_key=True)
     requester = me.ReferenceField("User", required=True)
     approver = me.ReferenceField("User")
     status = me.StringField(
