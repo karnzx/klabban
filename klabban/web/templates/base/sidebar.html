@@ -23,5 +23,12 @@
             แดชบอร์ด
           </a>
         </li>
+        <li class="">
+          <a class="{{ 'drawer-menu-active' if '/refugee_camp' in request.path else '' }}"
+            href="{{ url_for('refugee_camps.index') }}">
+            <span class="material-symbols-outlined">dashboard</span>
+            ศูนย์พักพิง
+          </a>
+        </li>
   </div>
 </div>
