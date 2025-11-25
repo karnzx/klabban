@@ -22,11 +22,6 @@
     <div class="flex-grow text-sm menu w-full">
       <ul class="menu gap-2 w-full">
 
-        <!-- Main menu header -->
-        <li class="menu-title px-6 pt-4">
-          <span class="text-xs uppercase opacity-80 text-blue-100">Main menu</span>
-        </li>
-
         <li>
           <a class="{{ 'drawer-menu-active' if request.path == url_for('index.index') else '' }}"
             href="{{ url_for('index.index') }}">
