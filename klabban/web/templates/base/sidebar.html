@@ -35,16 +35,16 @@
         </li>
 
         <li>
-          <a class="{{ 'drawer-menu-active' if '/projects' in request.path else '' }}"
+          <a class="{{ 'drawer-menu-active' if '/refugee_camps' in request.path else '' }}"
              href="{{ url_for('refugee_camps.index') }}">
-            <i class="ph ph-briefcase text-lg"></i>
+            <i class="ph ph-house-line text-lg"></i>
             ศูนย์พักพิง
           </a>
         </li>
         <li class="">
           <a class="{{ 'drawer-menu-active' if '/refugees' in request.path else '' }}"
-            href="{{ url_for('refugees.index') }}">
-            <span class="material-symbols-outlined">dashboard</span>
+             href="{{ url_for('refugee_camps.index') }}">
+            <i class="ph ph-person text-lg"></i>
             ผู้อพยพ
           </a>
         </li>
