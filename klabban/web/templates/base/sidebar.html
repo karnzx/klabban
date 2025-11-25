@@ -50,7 +50,7 @@
         </li>
          <li>
           <a class="{{ 'drawer-menu-active' if '/users' in request.path else '' }}"
-             href="#">
+             href="{{ url_for('users.index') }}">
             <i class="ph ph-users text-lg"></i>
             ผู้ใช้งาน
           </a>
