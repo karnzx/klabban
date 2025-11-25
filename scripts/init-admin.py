@@ -15,7 +15,6 @@ def init_admin():
     admin_user = User(
         username="admin",
         email="admin@example.com",
-        title="นาย",
         first_name="เจ้าหน้าที่",
         last_name="ดูแลระบบ",
         status="active",
