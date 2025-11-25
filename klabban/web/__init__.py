@@ -1,4 +1,5 @@
 import optparse
+import ast
 from flask import Flask
 
 from . import views
@@ -8,6 +9,7 @@ from . import redis_rq
 from .utils.error_handling import init_error_handling
 from .utils import acl
 from dotenv import dotenv_values
+from . import oauth2
 
 app = Flask(__name__)
 
@@ -17,12 +19,18 @@ def create_app():
     app.config.from_envvar("KLABBAN_SETTINGS", silent=True)
 
     config = dotenv_values(".env")
+    for k, v in config.items():
+        if "CLIENT_KWARGS" in k:
+            # convert string to dict
+            config[k] = ast.literal_eval(v)
+
     app.config.update(config)
 
     views.register_blueprint(app)
     models.init_db(app)
     acl.init_acl(app)
     redis_rq.init_rq(app)
+    oauth2.init_oauth(app)
     init_error_handling(app)
 
     return app

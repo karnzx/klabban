@@ -40,6 +40,8 @@ class User(me.Document, UserMixin):
         )
     )  # สิทธิ์การใช้งาน
 
+    resources = me.DictField()  # ข้อมูลเพิ่มเติมของผู้ใช้งานจาก OAuth2
+
     status = me.StringField(
         required=True, default="active", choices=STATUS
     )  # สถานะ ผู้ใช้งาน
